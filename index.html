@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            width : 100%;
+            padding:20%;
+            outline:5px solid black;
+            
+         }
+        input{
+            width: 42%;
+            height:0.7cm;
+            border:light grey;
+        }
+        .tooltip {
+          position: relative;
+        
+       }
+       .tooltip .tooltiptext {
+          visibility: hidden;
+           width: 120px;
+           background-color: gray;
+           color: white;
+           text-align: center;
+           border-radius: 6px;
+           padding: 5px 0;
+           
+
+        /* Position the tooltip */
+           position: absolute;
+           z-index: 1;
+        }
+          .tooltip:hover .tooltiptext {
+           visibility: visible;
+           
+  
+        }
+    </style>
+</head>
+<script>
+function validate()
+{
+   var GrossIncome = parseInt(document.getElementById("grossincome").value);
+   var ExtraIncome = parseInt(document.getElementById("extraincome").value);
+   var Deduction = parseInt( document.getElementById("deduction").value);
+   var Age= parseInt(document.getElementById("age").value);
+   console.log("GROSSINCOME = ", GrossIncome);
+   console.log("EXTRAINCOME = ", ExtraIncome);
+   console.log("DEDUCTION = ", Deduction);
+   console.log("AGE = ", Age);
+   var NetIncome;
+   var tax=0;
+   NetIncome=GrossIncome+ExtraIncome-Deduction;
+   console.log("netincome = ", NetIncome);
+   if(GrossIncome =="" || ExtraIncome =="" || Deduction ==""){
+    alert("only numeric values are allowed");
+   }
+   else if( NetIncome<=800000 )
+   {
+        console.log("no tax applied");  
+   }
+   else if(NetIncome>800000){
+        console.log("tax applied on this amount");
+        if(Age<40){
+         var taxableincome=(NetIncome-800000);
+         tax=.3*taxableincome;
+         console.log(tax);
+   }else if(Age>=40 && Age<60){
+        tax=.4*(NetIncome-800000);
+        console.log(tax);
+        }else if(Age>=60){
+        tax=.1*(NetIncome-800000);
+        console.log(tax);
+    }
+  } 
+  var overallIncome=parseInt(NetIncome-tax);
+    console.log("overallincome=", overallIncome);
+    document.getElementById("income").innerHTML = " your overall income will be" +" " + overallIncome +" " + "after tax deduction ";
+
+ }
+
+</script>
+<body>
+    <form onsubmit = "validate();return false;">
+        <div class="tooltip"><span class="tooltiptext">please enter numbers only</span>
+        <br><br>
+           <lable for = " grossincome" >Enter gross annual income</lable> 
+        <br>
+          <input type= "text" id="grossincome" >
+        <br><br>
+        <div>
+          <lable for = " extraincome">Enter extra income</lable>
+        <br>
+          <input type= "text" id="extraincome">
+        <br><br>
+        </div>
+        <div>
+            <lable for = " age">Enter age group</lable>
+        <br>
+            <input type= "number" id="age" min="1" max="100">
+        <br><br>
+        </div>
+        <div>
+            <lable for = " deduction">Enter total application deduction</lable>
+        <br>
+        <input type= "text" id="deduction">
+        <br>
+        </div>
+        <div>
+        <br>
+            <input type="submit"  style="background-color:blue"  value="submit">
+        <br>
+       <div >
+        <p id="income"></p>
+       </div>
+      
+      
+
+        </div>
+        <br>
+    </form>
+</body>
+</html>
